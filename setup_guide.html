@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkinDetect AI | Deployment Guide</title>
+    <style>
+        :root {
+            --brand-teal: #2dd4bf;
+            --brand-bg: #0f172a;
+            --brand-card: #1e293b;
+        }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--brand-bg);
+            color: #f1f5f9;
+            margin: 0;
+            padding: 40px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            margin: 0;
+        }
+        .accent { color: var(--brand-teal); }
+        .card {
+            background: var(--brand-card);
+            border: 1px solid rgba(45, 212, 191, 0.2);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+        .step-number {
+            display: inline-block;
+            background: var(--brand-teal);
+            color: var(--brand-bg);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: 800;
+            margin-right: 10px;
+        }
+        h2 { text-transform: uppercase; letter-spacing: 1px; font-size: 1.2rem; }
+        code {
+            background: #0f172a;
+            padding: 4px 8px;
+            border-radius: 6px;
+            color: var(--brand-teal);
+            font-family: 'Fira Code', monospace;
+        }
+        pre {
+            background: #0f172a;
+            padding: 20px;
+            border-radius: 12px;
+            overflow-x: auto;
+            border: 1px solid #334155;
+        }
+        .btn {
+            display: inline-block;
+            background: var(--brand-teal);
+            color: var(--brand-bg);
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 700;
+            margin-top: 10px;
+            transition: all 0.2s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(45, 212, 191, 0.3);
+        }
+        .admin-creds {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>SkinDetect<span class="accent">.AI</span></h1>
+            <p>Ultimate Deployment & Setup Instructions</p>
+        </header>
+
+        <div class="card">
+            <h2><span class="step-number">1</span> Install Mandatory Prerequisites</h2>
+            <p>Ensure your system has the following software installed before proceeding:</p>
+            <ul>
+                <li><strong>Python 3.9+</strong>: <a href="https://www.python.org/downloads/" class="accent">Download Here</a></li>
+                <li><strong>Node.js 20+ (LTS)</strong>: <a href="https://nodejs.org/" class="accent">Download Here</a></li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2><span class="step-number">2</span> Configuration</h2>
+            <p>Before running, you must set up your environment variables:</p>
+            <ol>
+                <li>Go to <code>web-app/</code>, rename <code>.env.example</code> to <code>.env</code>.</li>
+                <li>Go to <code>backend/</code>, rename <code>.env.example</code> to <code>.env</code>.</li>
+                <li>Open <code>backend/.env</code> and configure your <code>JWT_SECRET_KEY</code> and API keys.</li>
+            </ol>
+        </div>
+
+        <div class="card">
+            <h2><span class="step-number">3</span> Running the Application</h2>
+            <p>Simply double-click the <code>run.bat</code> file in the root directory. This script will:</p>
+            <ul>
+                <li>Create a Python virtual environment.</li>
+                <li>Install all backend dependencies (using <code>requirements.txt</code>).</li>
+                <li>Install all frontend dependencies (using <code>npm install</code>).</li>
+                <li>Start both servers simultaneously.</li>
+            </ul>
+            <p>Once running, access the portals at:</p>
+            <pre>Frontend: http://localhost:5173/SkinDetectAI/
+Backend API: http://localhost:8000</pre>
+        </div>
+
+        <div class="card">
+            <h2>🛡️ Default Admin Credentials</h2>
+            <div class="admin-creds">
+                <p><strong>Email:</strong> admin@skindetect.ai</p>
+                <p><strong>Password:</strong> Admin@1234</p>
+            </div>
+            <p style="font-size: 0.8rem; color: #94a3b8; margin-top: 20px;">
+                Note: These credentials are initialized during the first database setup in <code>backend/main.py</code>.
+            </p>
+        </div>
+
+        <div class="card">
+            <h2>🤖 Live AI Features</h2>
+            <p>Your <strong>OpenAI API Key</strong> has been successfully integrated. The following feature is now live:</p>
+            <ul>
+                <li><strong>Medical AI Assist</strong>: Users can now chat with a GPT-powered dermatological triage assistant directly in the app.</li>
+            </ul>
+        </div>
+
+        <footer style="text-align: center; color: #64748b; font-size: 0.8rem;">
+            &copy; 2026 SkinDetect AI Platform - Advanced Teledermatology Solutions
+        </footer>
+    </div>
+</body>
+</html>

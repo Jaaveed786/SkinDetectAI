@@ -1,0 +1,62 @@
+# ─── Python ──────────────────────────────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pyw
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+*.so
+*.env
+.env
+backend/.env
+venv/
+.venv/
+backend/venv/
+backend/.venv/
+
+# ─── SQLite ───────────────────────────────────────────────────────────────────
+*.db
+*.sqlite
+*.sqlite3
+backend/skindetect_local.db
+
+# ─── ML Models (large files) ──────────────────────────────────────────────────
+backend/ml/*.h5
+backend/ml/*.pb
+backend/ml/saved_model/
+datasets/ham10000/
+datasets/isic2019/
+
+# ─── Node / Frontend ─────────────────────────────────────────────────────────
+node_modules/
+web-app/node_modules/
+mobile-app/node_modules/
+web-app/dist/
+web-app/.vite/
+.npmrc
+
+# ─── Vite ─────────────────────────────────────────────────────────────────────
+web-app/.env
+web-app/.env.local
+web-app/.env.production
+
+# ─── IDE / OS ─────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ─── Logs ─────────────────────────────────────────────────────────────────────
+*.log
+logs/
+*.tmp
+
+# ─── Docker ───────────────────────────────────────────────────────────────────
+docker-data/
