@@ -1,6 +1,6 @@
 # 🔬 SkinDetect.AI — Smart Dermatology Platform
 
-> **AI-Powered Multi-Label Skin Cancer Detection & Management System**
+> **AI-Powered system for Multi-Label Skin Cancer Detection & Management System**
 
 [![Live Demo](https://img.shields.io/badge/Live-WebAPP-teal?style=for-the-badge&logo=react)](https://jaaveed786.github.io/SkinDetectAI/)
 [![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-slate?style=for-the-badge&logo=github)](https://github.com/Jaaveed786/SkinDetectAI)
