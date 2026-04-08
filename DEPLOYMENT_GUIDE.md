@@ -44,8 +44,8 @@ Understanding these files is key to a successful deployment:
 1. **Configure Git Identity**:
    If this is your first time using Git on this computer, set your identity:
    ```bash
-   git config --global user.email "your@example.com"
-   git config --global user.name "Your Name"
+   git config --global user.email "mullajaaveed786@gmail.com"
+   git config --global user.name "Jaaveed"
    ```
 
 2. **Initialize Local Git**:
@@ -58,10 +58,10 @@ Understanding these files is key to a successful deployment:
    ```
 
 3. **Connect to GitHub**:
-   Replace `USERNAME` with your GitHub username:
+   Run this command to link your code to your repository:
 
    ```bash
-   git remote add origin https://github.com/USERNAME/SkinDetectAI.git
+   git remote add origin https://github.com/Jaaveed786/SkinDetectAI.git
    git branch -M main
    git push -u origin main
    ```
