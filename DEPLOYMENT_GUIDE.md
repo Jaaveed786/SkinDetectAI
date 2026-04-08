@@ -122,12 +122,36 @@ To run the app **24/7**, you need a Virtual Private Server (VPS) like DigitalOce
 
 ---
 
-## 🔒 Step 5: Professional Access (Domain & SSL)
+---
 
-1. **Point Domain**: Point your domain (e.g., `skindetect.ai`) to your server's IP address.
-2. **SSL (HTTPS)**: Use **Nginx Proxy Manager** or **Certbot** to add a free SSL certificate from Let's Encrypt.
+## 🌎 6. Global 24/7 Access (Vercel & Render)
+
+If you want a link like `skindetect.vercel.app` that works on **any device, anywhere** without running `run.bat`, follow these steps.
+
+### Phase 1: Deploy AI Engine (Render.com)
+1. Sign in to [Render](https://render.com) using your GitHub account.
+2. Select **New Web Service** and connect your `SkinDetectAI` repo.
+3. **Settings**:
+   - **Root Directory**: `backend`
+   - **Runtime**: `Docker`
+   - **Instance Type**: Starter (or free, but note AI needs memory)
+4. **Environment Variables**: Add your `JWT_SECRET_KEY` and any AI keys needed.
+5. Copy your Render URL (e.g., `https://skindetect-backend.onrender.com`).
+
+### Phase 2: Deploy Web App (Vercel.com)
+1. Sign in to [Vercel](https://vercel.com) using your GitHub account.
+2. Select **Add New Project** and import `SkinDetectAI`.
+3. **Settings**:
+   - **Root Directory**: `web-app`
+   - **Framework Preset**: `Vite`
+4. **Environment Variables**:
+   - Key: `VITE_API_BASE_URL`
+   - Value: [Your Render URL from Phase 1]
+5. Click **Deploy**.
 
 ---
 
-> [!IMPORTANT]
-> **24/7 Reliability**: Docker is configured with `restart: always` in your `docker-compose.yml`, so if the server reboots unexpectedly, the AI system will automatically restart itself.
+> [!TIP]
+> **Why this works**: Once deployed, your website lives on Vercel's global network, and your AI engine lives on Render. Both are available 24/7 and don't require your computer to be turned on!
+
+---
