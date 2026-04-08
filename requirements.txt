@@ -8,20 +8,20 @@
 fastapi==0.104.1
 uvicorn[standard]==0.24.0
 pydantic==2.5.2
-python-multipart==0.0.6
+python-multipart==0.0.22
 python-dotenv==1.0.0
 
 # --- AI & Computer Vision ---
 tensorflow==2.15.0
-keras==2.15.0
-Pillow==10.1.0
+keras==3.13.2
+Pillow==12.1.1
 numpy==1.26.2
 opencv-python-headless==4.8.1.78
 matplotlib==3.8.2
 scipy==1.11.4
 
 # --- Authentication & Security ---
-python-jose[cryptography]==3.3.0
+python-jose[cryptography]==3.4.0
 passlib[pbkdf2_sha256]==1.7.4
 
 # --- PDF & Utility ---

@@ -8,23 +8,23 @@ fastapi==0.104.1
 uvicorn[standard]==0.24.0
 pydantic==2.5.2
 pydantic[email]==2.5.2
-python-multipart==0.0.6
+python-multipart==0.0.22
 python-dotenv==1.0.0
 httpx==0.25.2
 aiofiles==23.2.1
 
 # --- Security / Authentication (JWT + Password Hashing) ---
-python-jose[cryptography]==3.3.0
+python-jose[cryptography]==3.4.0
 passlib[pbkdf2_sha256]==1.7.4
 
 # --- AI / Deep Learning Engine ---
 tensorflow==2.15.0
-keras==2.15.0
+keras==3.13.2
 scipy==1.11.4
-scikit-learn==1.3.2
+scikit-learn==1.5.0
 
 # --- Computer Vision (Image Processing + Grad-CAM) ---
-Pillow==10.1.0
+Pillow==12.1.1
 numpy==1.26.2
 opencv-python-headless==4.8.1.78
 matplotlib==3.8.2
@@ -40,7 +40,7 @@ sqlalchemy[asyncio]==2.0.23
 alembic==1.13.0
 # MongoDB (Scans & Images DB)
 motor==3.3.2
-pymongo==4.6.1
+pymongo==4.6.3
 
 # --- Caching / Async Task Queue (Redis + Celery) ---
 redis==5.0.1
@@ -48,7 +48,7 @@ celery==5.3.6
 
 # --- Email / SMS Notifications ---
 aiosmtplib==3.0.1
-jinja2==3.1.2
+jinja2==3.1.6
 
 # --- Cloud Integration ---
 cloudinary==1.36.0
