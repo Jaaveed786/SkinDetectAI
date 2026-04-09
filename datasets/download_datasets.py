@@ -25,9 +25,11 @@ KAGGLE_DATASETS = [
     },
 ]
 
+KAGGLE_EXE = r"C:\Users\Jyoshna K\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\Scripts\kaggle.exe"
+
 def check_kaggle():
     try:
-        subprocess.run(["kaggle", "--version"], check=True, capture_output=True)
+        subprocess.run([KAGGLE_EXE, "--version"], check=True, capture_output=True)
         return True
     except (FileNotFoundError, subprocess.CalledProcessError):
         return False
@@ -38,8 +40,9 @@ def download(dataset: dict):
     print(f"\n📥 Downloading: {dataset['name']}")
     print(f"   Handle : {dataset['handle']}")
     print(f"   Target : {dest}")
-    cmd = ["kaggle", "datasets", "download", "-d", dataset["handle"],
+    cmd = [KAGGLE_EXE, "datasets", "download", "-d", dataset["handle"],
            "-p", dest, "--unzip"]
+    
     result = subprocess.run(cmd, capture_output=False)
     if result.returncode == 0:
         print(f"   ✅ Done → {dest}")
@@ -47,7 +50,7 @@ def download(dataset: dict):
         print(f"   ❌ Failed — check your Kaggle API credentials.")
 
 def create_readme():
-    with open(os.path.join(DATASETS_DIR, "README.md"), "w") as f:
+    with open(os.path.join(DATASETS_DIR, "README.md"), "w", encoding="utf-8") as f:
         f.write("""# SkinDetect.AI — Datasets
 
 ## Required Datasets
