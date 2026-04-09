@@ -1,14 +1,15 @@
 """
-SkinDetect.AI Dataset Downloader
-Downloads HAM10000 & ISIC datasets via Kaggle API.
+SkinDetect.AI - Dataset Downloader
+====================================
+Downloads HAM10000 & ISIC 2019 datasets via Kaggle API.
 
 Usage:
   pip install kaggle
-  # Place your kaggle.json in ~/.kaggle/kaggle.json
+  # Place your kaggle.json in C:\\Users\\<user>\\.kaggle\\kaggle.json
   python download_datasets.py
 """
 
-import os, sys, zipfile, subprocess
+import os, sys, subprocess, shutil
 
 DATASETS_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -25,33 +26,63 @@ KAGGLE_DATASETS = [
     },
 ]
 
-KAGGLE_EXE = r"C:\Users\Jyoshna K\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\Scripts\kaggle.exe"
+def find_kaggle():
+    """Find the kaggle executable on the system."""
+    # Try shutil.which first (works cross-platform)
+    kaggle = shutil.which("kaggle")
+    if kaggle:
+        return kaggle
 
-def check_kaggle():
-    try:
-        subprocess.run([KAGGLE_EXE, "--version"], check=True, capture_output=True)
-        return True
-    except (FileNotFoundError, subprocess.CalledProcessError):
+    # Windows fallback locations
+    candidates = [
+        os.path.expandvars(r"%APPDATA%\Python\Scripts\kaggle.exe"),
+        os.path.expanduser(r"~\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\Scripts\kaggle.exe"),
+        os.path.expanduser(r"~\AppData\Local\Programs\Python\Python311\Scripts\kaggle.exe"),
+        os.path.expanduser(r"~\AppData\Roaming\Python\Python311\Scripts\kaggle.exe"),
+    ]
+    for c in candidates:
+        if os.path.isfile(c):
+            return c
+
+    return None
+
+def check_credentials():
+    """Check that kaggle.json exists."""
+    cred = os.path.join(os.path.expanduser("~"), ".kaggle", "kaggle.json")
+    if not os.path.isfile(cred):
+        print(f"❌ Kaggle credentials not found at: {cred}")
+        print("   Visit https://www.kaggle.com/settings → 'Create New API Token'")
         return False
+    return True
 
-def download(dataset: dict):
+def download(kaggle_exe: str, dataset: dict):
     dest = os.path.join(DATASETS_DIR, dataset["folder"])
     os.makedirs(dest, exist_ok=True)
-    print(f"\n📥 Downloading: {dataset['name']}")
+
+    print(f"\n[DOWNLOAD] {dataset['name']}")
     print(f"   Handle : {dataset['handle']}")
     print(f"   Target : {dest}")
-    cmd = [KAGGLE_EXE, "datasets", "download", "-d", dataset["handle"],
-           "-p", dest, "--unzip"]
-    
-    result = subprocess.run(cmd, capture_output=False)
+
+    cmd = [kaggle_exe, "datasets", "download",
+           "-d", dataset["handle"],
+           "-p", dest,
+           "--unzip"]
+
+    result = subprocess.run(cmd)
     if result.returncode == 0:
-        print(f"   ✅ Done → {dest}")
+        print(f"   [OK] Done -> {dest}")
     else:
-        print(f"   ❌ Failed — check your Kaggle API credentials.")
+        print(f"   [FAIL] Failed -- check your Kaggle credentials and internet connection.")
+        return False
+    return True
 
 def create_readme():
-    with open(os.path.join(DATASETS_DIR, "README.md"), "w", encoding="utf-8") as f:
+    readme_path = os.path.join(DATASETS_DIR, "README.md")
+    with open(readme_path, "w", encoding="utf-8", errors="replace") as f:
         f.write("""# SkinDetect.AI — Datasets
+
+> **Note:** Dataset images are NOT stored in GitHub (too large).
+> Follow the steps below to download them locally.
 
 ## Required Datasets
 
@@ -70,19 +101,35 @@ pip install kaggle
 ### 2. Get API credentials
 - Go to https://www.kaggle.com/settings
 - Click **Create New Token** → downloads `kaggle.json`
-- Place at `~/.kaggle/kaggle.json` (Linux/Mac) or `C:\\Users\\<user>\\.kaggle\\kaggle.json` (Windows)
+- Place at `C:\\Users\\<YourName>\\.kaggle\\kaggle.json` (Windows)
+- Or `~/.kaggle/kaggle.json` (Linux/Mac)
 
 ### 3. Run the downloader
 ```bash
-python download_datasets.py
+python datasets/download_datasets.py
 ```
 
-## Dataset Classes (HAM10000 / HAM10000)
+## Local Directory Structure (after download)
+
+```
+datasets/
+├── ham10000/
+│   ├── HAM10000_images_part_1/   (5,000 images)
+│   ├── HAM10000_images_part_2/   (5,015 images)
+│   └── HAM10000_metadata.csv
+├── isic2019/
+│   ├── ISIC_2019_Training_Input/
+│   └── ISIC_2019_Training_GroundTruth.csv
+├── download_datasets.py
+└── README.md
+```
+
+## Dataset Classes
 
 | Label | Class | Description |
 |-------|-------|-------------|
 | nv    | Melanocytic Nevi | Benign mole |
-| mel   | Melanoma | Malignant skin cancer |
+| mel   | Melanoma | Malignant skin cancer ★ |
 | bkl   | Benign Keratosis | Seborrheic keratosis |
 | bcc   | Basal Cell Carcinoma | Common skin cancer |
 | akiec | Actinic Keratosis | Pre-cancerous lesion |
@@ -93,7 +140,7 @@ python download_datasets.py
 - Tschandl et al., *Scientific Data* 2018 — https://www.nature.com/articles/sdata2018161
 - ISIC Archive — https://www.isic-archive.com
 """)
-    print("📄 README.md created in datasets/")
+    print("[OK] README.md updated in datasets/")
 
 if __name__ == "__main__":
     print("=" * 60)
@@ -102,14 +149,32 @@ if __name__ == "__main__":
 
     create_readme()
 
-    if not check_kaggle():
-        print("\n❌ Kaggle CLI not found. Install with: pip install kaggle")
-        print("   Then set up credentials at: https://www.kaggle.com/settings")
+    kaggle_exe = find_kaggle()
+    if not kaggle_exe:
+        print("\n[FAIL] Kaggle CLI not found. Install with:")
+        print("   pip install kaggle")
+        print("   Then restart your terminal.")
         sys.exit(1)
 
-    for ds in KAGGLE_DATASETS:
-        download(ds)
+    print(f"\n[OK] Found Kaggle at: {kaggle_exe}")
 
-    print("\n✅ All downloads complete!")
-    print(f"   Datasets saved to: {DATASETS_DIR}")
-    print("   Use ham10000/ and isic2019/ folders for model training.")
+    if not check_credentials():
+        sys.exit(1)
+
+    print("\n[OK] Kaggle credentials found.")
+    print(f"   Saving all datasets to: {DATASETS_DIR}\n")
+
+    all_ok = True
+    for ds in KAGGLE_DATASETS:
+        ok = download(kaggle_exe, ds)
+        if not ok:
+            all_ok = False
+
+    print("\n" + "=" * 60)
+    if all_ok:
+        print("[SUCCESS] All downloads complete!")
+        print(f"   Datasets saved to: {DATASETS_DIR}")
+        print("   Folders: ham10000/  and  isic2019/")
+    else:
+        print("[WARNING] Some downloads failed. Check errors above.")
+    print("=" * 60)

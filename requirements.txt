@@ -2,29 +2,31 @@
 # SkinDetect.AI - Root Consolidated Requirements
 # This file tracks all core dependencies for the full system.
 # Installation: pip install -r requirements.txt
+# Last updated: 2026-04-09 (security patch)
 # ============================================================
 
 # --- FastAPI & Web Framework ---
-fastapi==0.104.1
-uvicorn[standard]==0.24.0
-pydantic==2.5.2
-python-multipart==0.0.6
-python-dotenv==1.0.0
+fastapi==0.115.5
+uvicorn[standard]==0.32.1
+pydantic==2.10.3
+python-multipart==0.0.12
+python-dotenv==1.0.1
 
 # --- AI & Computer Vision ---
-tensorflow==2.15.0
-keras==2.15.0
-Pillow==10.1.0
-numpy==1.26.2
-opencv-python-headless==4.8.1.78
-matplotlib==3.8.2
-scipy==1.11.4
+tensorflow==2.17.0
+keras==3.6.0
+Pillow==11.0.0
+numpy==1.26.4
+opencv-python-headless==4.10.0.84
+matplotlib==3.9.3
+scipy==1.14.1
 
 # --- Authentication & Security ---
 python-jose[cryptography]==3.3.0
-passlib[pbkdf2_sha256]==1.7.4
+passlib[bcrypt]==1.7.4
+bcrypt==4.2.1
 
 # --- PDF & Utility ---
-reportlab==4.0.7
-httpx==0.25.2
-loguru==0.7.2
+reportlab==4.2.5
+httpx==0.28.0
+loguru==0.7.3

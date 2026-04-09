@@ -28,8 +28,19 @@ backend/skindetect_local.db
 backend/ml/*.h5
 backend/ml/*.pb
 backend/ml/saved_model/
+
+# ─── Datasets (large image files — download locally via download_datasets.py) ─
 datasets/ham10000/
 datasets/isic2019/
+datasets/**/*.jpg
+datasets/**/*.jpeg
+datasets/**/*.png
+datasets/**/*.JPEG
+datasets/**/*.JPG
+datasets/**/*.PNG
+datasets/**/*.csv
+datasets/**/*.hdf5
+datasets/**/*.h5
 
 # ─── Node / Frontend ─────────────────────────────────────────────────────────
 node_modules/
@@ -60,3 +71,12 @@ logs/
 
 # ─── Docker ───────────────────────────────────────────────────────────────────
 docker-data/
+
+# ─── Security ─────────────────────────────────────────────────────────────────
+# NEVER commit credentials
+*.pem
+*.key
+*.p12
+*.pfx
+kaggle.json
+secrets/

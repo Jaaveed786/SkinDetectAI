@@ -1,5 +1,8 @@
 # SkinDetect.AI — Datasets
 
+> **Note:** Dataset images are NOT stored in GitHub (too large).
+> Follow the steps below to download them locally.
+
 ## Required Datasets
 
 | Dataset | Source | Size |
@@ -17,19 +20,35 @@ pip install kaggle
 ### 2. Get API credentials
 - Go to https://www.kaggle.com/settings
 - Click **Create New Token** → downloads `kaggle.json`
-- Place at `~/.kaggle/kaggle.json` (Linux/Mac) or `C:\Users\<user>\.kaggle\kaggle.json` (Windows)
+- Place at `C:\Users\<YourName>\.kaggle\kaggle.json` (Windows)
+- Or `~/.kaggle/kaggle.json` (Linux/Mac)
 
 ### 3. Run the downloader
 ```bash
-python download_datasets.py
+python datasets/download_datasets.py
 ```
 
-## Dataset Classes (HAM10000 / HAM10000)
+## Local Directory Structure (after download)
+
+```
+datasets/
+├── ham10000/
+│   ├── HAM10000_images_part_1/   (5,000 images)
+│   ├── HAM10000_images_part_2/   (5,015 images)
+│   └── HAM10000_metadata.csv
+├── isic2019/
+│   ├── ISIC_2019_Training_Input/
+│   └── ISIC_2019_Training_GroundTruth.csv
+├── download_datasets.py
+└── README.md
+```
+
+## Dataset Classes
 
 | Label | Class | Description |
 |-------|-------|-------------|
 | nv    | Melanocytic Nevi | Benign mole |
-| mel   | Melanoma | Malignant skin cancer |
+| mel   | Melanoma | Malignant skin cancer ★ |
 | bkl   | Benign Keratosis | Seborrheic keratosis |
 | bcc   | Basal Cell Carcinoma | Common skin cancer |
 | akiec | Actinic Keratosis | Pre-cancerous lesion |
